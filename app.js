@@ -8,6 +8,9 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var tokensRouter = require('./routes/tokens');
+var rolesRouter = require('./routes/roles');
+var gamesHistoryRouter = require('./routes/gamesHistory');
 
 var app = express();
 

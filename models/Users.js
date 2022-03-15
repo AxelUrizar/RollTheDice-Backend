@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
-
-let User = new Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -23,14 +20,23 @@ let User = new Schema({
   },
   points: {
     type: Number,
-    required: false,
+    required: true,
+    default: 0
   },
   coins: {
     type: Number,
-    required: false
-  }
+    required: true,
+    default: 0
+  },
+  // skins: [{
+  //   type: 
+  // }],
+  // roles: [{
+  //   type:
+  // }]
 });
 
-const model = mongoose.model("Users", User);
+module.exports = mongoose.model('User', UserSchema)
 
-module.exports = model;
+
+

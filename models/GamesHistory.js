@@ -23,6 +23,10 @@ let GamesHistory = new Schema({
             }
         }
     }],
+    finalResult: {
+        type: Boolean,
+        required: true
+    },
     userId: {
         type: String,
         required: true

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --inspect ./bin/www"
+    "dev": "set PORT=2020 && nodemon --inspect ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -21,8 +21,8 @@
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15"
   },
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/AxelUrizar/RollTheDice-Backend.git",
   "author": "AxelUrizar <axelurizarmartin@gmail.com>",
-  "license": "MIT"
+  "license": "ISC"
 }

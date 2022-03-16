@@ -8,25 +8,35 @@ const GamesHistory = require('../models/GamesHistory')
 router.get('/', async (req, res, next) => {
   try {
     const history = await GamesHistory.find({});
-    res.status(200).json(history)
+    return res.status(200).json(history)
   } catch (error) {
-    res.status(500).json(error)
+    return res.status(500).json(error)
   }
 });
 
+router.get('/userHistory', auth, async (req, res) => {
+  try {
+    const userHistory = await GamesHistory.find({userId: req.user._id});
+
+    return res.status(200).json(userHistory)
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
 router.post('/newGame', auth, async (req, res) => {
   try {
-    const {games, finalResult, userId} = req.body;
+    const {games, finalResult} = req.body;
 
-    const newGame = GamesHistory.create({
+    const newGame = await GamesHistory.create({
       games: games,
       finalResult: finalResult,
-      userId: userId
+      userId: req.user._id
     })
     console.log(newGame)
-    res.status(200).json(newGame)
+    return res.status(200).json(newGame)
   } catch (error) {
-    res.status(500).json(error)
+    return res.status(500).json(error)
   }
 })
 

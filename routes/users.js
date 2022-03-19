@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 var auth = require('../middlewares/auth')
 var User = require('../models/Users');
 var Token = require('../models/Tokens');
+var Skins = require('../models/Skins')
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
@@ -66,7 +67,11 @@ router.post('/login', async (req, res) => {
 
 router.get('/profile', auth, async(req, res) => {
   try {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id).populate('skins', {
+      name: 1,
+      imageURL: 1,
+      _id: 0
+    })
     return res.status(200).json(user)
   } catch (error) {
     return res.status(500).json(error)
@@ -86,6 +91,32 @@ router.delete('/logoutAll', auth, async (req, res) => {
   try {
     await Token.deleteMany({userId: req.user._id})
     return res.status(200).json('Logout de todos los dispositivos completado')
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
+
+
+// 
+// Buy new Skin
+// 
+router.put('/buySkin', auth, async (req, res) => {
+  try {
+    const {skinId} = req.body;
+
+    const user = await User.findById(req.user._id);
+    Skins.findById(skinId)
+      .then(response => {
+        console.log(response);
+        const comprobation = user.skins.filter(skin => skin == skinId)
+        if (comprobation.length > 0) return res.status(401).json('You already have this skin')
+        user.skins = user.skins.concat(skinId);
+        user.coins = user.coins - response.value;
+        user.save();
+        return res.status(200).json('Skin comparada con éxito')
+      })
+      .catch(err => res.status(401).json("Skin non existent"))
   } catch (error) {
     return res.status(500).json(error)
   }

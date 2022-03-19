@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {Schema} = require('mongoose')
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -18,6 +19,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rol: {
+    type: String,
+    required: true,
+    default: 'user'
+  },
   points: {
     type: Number,
     required: true,
@@ -28,12 +34,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
-  // skins: [{
-  //   type: 
-  // }],
-  // roles: [{
-  //   type:
-  // }]
+  skins: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Skins'
+  }]
 });
 
 module.exports = mongoose.model('User', UserSchema)

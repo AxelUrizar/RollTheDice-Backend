@@ -9,7 +9,8 @@ require('./config/mongoose')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var rolesRouter = require('./routes/roles');
+// var rolesRouter = require('./routes/roles');
+var skinsRouter = require('./routes/skins');
 var gamesHistoryRouter = require('./routes/gamesHistory');
 
 var app = express();
@@ -30,8 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/roles', rolesRouter)
-app.use('/gamesHistory', gamesHistoryRouter)
+// app.use('/roles', rolesRouter);
+app.use('/skins', skinsRouter);
+app.use('/gamesHistory', gamesHistoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

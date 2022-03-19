@@ -3,7 +3,9 @@ var router = express.Router();
 
 var Skins = require('../models/Skins');
 
-// Get all skins
+// 
+// Show all skins
+// 
 router.get('/', async (req, res) => {
     try {
         const skins = await Skins.find({})
@@ -13,7 +15,9 @@ router.get('/', async (req, res) => {
     }
 });
 
+// 
 // Create new skin
+// 
 router.post('/newSkin', async (req, res) => {
     try {
         const {name, value, imageURL} = req.body;

@@ -4,7 +4,9 @@ const router = express.Router();
 
 const GamesHistory = require('../models/GamesHistory')
 
-// MOSTRAR TODOS LOS HISTORIALES
+// 
+// Show gameHistory from all users
+// 
 router.get('/', async (req, res, next) => {
   try {
     const history = await GamesHistory.find({});
@@ -14,6 +16,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// 
+//  Show User GameHistory
+// 
 router.get('/userHistory', auth, async (req, res) => {
   try {
     const userHistory = await GamesHistory.find({userId: req.user._id});
@@ -24,6 +29,9 @@ router.get('/userHistory', auth, async (req, res) => {
   }
 })
 
+// 
+// Create new User Game
+// 
 router.post('/newGame', auth, async (req, res) => {
   try {
     const {games, finalResult} = req.body;

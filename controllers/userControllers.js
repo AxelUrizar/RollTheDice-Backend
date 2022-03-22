@@ -56,7 +56,11 @@ exports.login = async (req, res) => {
     try {
       const {alias, password} = req.body
       
-      const user = await User.findOne({alias: alias})
+      const user = await User.findOne({alias: alias}).populate('skins', {
+        name: 1,
+        imageURL: 1,
+        _id: 0
+      })
       
       const decriptedPassword = await bcrypt.compare(password, user.password)
       if(!user || !decriptedPassword) return res.status(401).json('Credenciales no válidos')

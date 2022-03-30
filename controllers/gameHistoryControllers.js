@@ -63,7 +63,7 @@ exports.newGame = async (req, res) => {
           break
       }
       
-      return res.status(200).json([newGame, player.points])
+      return res.status(200).json(newGame)
     } catch (error) {
       return res.status(500).json(error)
     }

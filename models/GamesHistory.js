@@ -17,7 +17,7 @@ let GamesHistory = new Schema({
     },
     gameDate: {
         type: String,
-        required: true,
+        required: false,
         default: moment(new Date()).format("DD/MM/YYYY")
     }
 })

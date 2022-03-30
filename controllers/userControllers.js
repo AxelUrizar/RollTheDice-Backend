@@ -1,3 +1,4 @@
+var mongoose = require('mongoose')
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
@@ -39,7 +40,9 @@ exports.createUser = async (req, res) => {
         name: name,
         alias: alias,
         email: email,
-        password: encryptPassword
+        password: encryptPassword,
+        selectedSkin: mongoose.Types.ObjectId('623639959eb9206c4b8f41d9'),
+        skins: [mongoose.Types.ObjectId('623639959eb9206c4b8f41d9')]
       })
   
       return res.status(200).json(user)
@@ -56,7 +59,7 @@ exports.login = async (req, res) => {
     try {
       const {alias, password} = req.body
       
-      const user = await User.findOne({alias: alias}).populate('skins', {
+      const user = await User.findOne({alias: alias}).populate('skins selectedSkin', {
         name: 1,
         imageURL: 1,
         _id: 0
@@ -79,11 +82,12 @@ exports.login = async (req, res) => {
 //
 exports.profile = async(req, res) => {
     try {
-      const user = await User.findById(req.user._id).populate('skins', {
-        name: 1,
-        imageURL: 1,
-        _id: 0
-      })
+      const user = await User.findById(req.user._id)
+        .populate('selectedSkin skins', {
+          name: 1,
+          imageURL: 1,
+          _id: 0
+        })
       return res.status(200).json(user)
     } catch (error) {
       return res.status(500).json(error)

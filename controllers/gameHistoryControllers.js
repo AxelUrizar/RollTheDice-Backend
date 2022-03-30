@@ -1,4 +1,6 @@
 const GamesHistory = require('../models/GamesHistory');
+const User = require('../models/Users');
+
 
 // 
 // Show gameHistory from all users
@@ -31,14 +33,37 @@ exports.userHistory = async (req, res) => {
 exports.newGame = async (req, res) => {
     try {
       const {games, finalResult} = req.body;
-  
+      const userId = req.user._id  
+
       const newGame = await GamesHistory.create({
         games: games,
         finalResult: finalResult,
-        userId: req.user._id
+        userId: userId
       })
-      console.log(newGame)
-      return res.status(200).json(newGame)
+
+      const player = await User.findOne({_id: userId})
+      switch (finalResult) {
+        case 'Win':
+          player.points += 15
+          player.coins += 5
+          player.save()
+            break
+
+        case 'Lose':
+          player.points -= 15
+          await player.save(err => console.log(err))
+            break
+
+        case 'Tie':
+          player.coins += 5
+          await player.save(err => console.log(err))
+            break
+
+        default:
+          break
+      }
+      
+      return res.status(200).json([newGame, player.points])
     } catch (error) {
       return res.status(500).json(error)
     }

@@ -34,9 +34,15 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
+  selectedSkin: {
+    type: Schema.Types.ObjectId,
+    ref: 'Skins',
+    required: true
+  },
   skins: [{
     type: Schema.Types.ObjectId,
-    ref: 'Skins'
+    ref: 'Skins',
+    required: true
   }]
 });
 

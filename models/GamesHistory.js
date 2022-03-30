@@ -2,26 +2,17 @@ const moment = require('moment')
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let GamesHistory = new Schema({
-    games:[{
-        userDiceRolls: {
-            type: Array,
-            required: true
-        },
-        opponentDiceRolls: {
-            type: Array,
-            required: true
-        },
-        winner: {
-            type: Boolean,
-            required: true
-        }
-    }],
+    games:{
+        type: Array,
+        required: true
+    },
     finalResult: {
-        type: Boolean,
+        type: String,
         required: true
     },
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     gameDate: {

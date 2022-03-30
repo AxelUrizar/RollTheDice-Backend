@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "set PORT=2020 && nodemon --inspect ./bin/www"
+    "dev": "set && nodemon --inspect ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

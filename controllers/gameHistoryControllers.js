@@ -45,13 +45,15 @@ exports.newGame = async (req, res) => {
       switch (finalResult) {
         case 'Win':
           player.points += 15
-          player.coins += 5
+          player.coins += 25
           player.save()
             break
 
         case 'Lose':
-          player.points -= 15
-          await player.save(err => console.log(err))
+          if(player.points > 0){
+            player.points -= 10
+            await player.save(err => console.log(err))
+          }
             break
 
         case 'Tie':
@@ -63,7 +65,10 @@ exports.newGame = async (req, res) => {
           break
       }
       
-      return res.status(200).json(newGame)
+      return res.status(200).json({
+        game: newGame,
+        player: player
+      })
     } catch (error) {
       return res.status(500).json(error)
     }

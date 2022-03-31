@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   points: {
     type: Number,
     required: true,
-    default: 0
+    default: 500
   },
   coins: {
     type: Number,

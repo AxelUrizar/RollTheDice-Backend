@@ -50,8 +50,11 @@ exports.newGame = async (req, res) => {
             break
 
         case 'Lose':
-          if(player.points > 0){
+          if(player.points > 9){
             player.points -= 10
+            await player.save(err => console.log(err))
+          } else {
+            player.points = 0
             await player.save(err => console.log(err))
           }
             break

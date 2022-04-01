@@ -13,6 +13,9 @@ router.post('/newUser', userControllers.createUser)
 //  Login User
 router.post('/login', userControllers.login)
 
+// Edit User Alias
+router.put('/edit', auth, userControllers.editProfile)
+
 //  Show user Profile
 router.get('/profile', auth, userControllers.profile)
 

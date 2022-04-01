@@ -94,6 +94,19 @@ exports.profile = async(req, res) => {
     }
 }
 
+exports.editProfile = async(req, res) => {
+  try {
+    const {alias} = req.body
+
+    const user = await User.findOne(req.user._id)
+    user.alias = alias.length > 2 ? alias : user.alias
+    user.save()
+    return res.status(200).json(user)
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
 //  
 //  Logout from this dispositive
 // 

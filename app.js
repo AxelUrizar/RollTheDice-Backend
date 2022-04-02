@@ -9,7 +9,7 @@ require('./config/mongoose')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-// var rolesRouter = require('./routes/roles');
+var adminRouter = require('./routes/admin');
 var skinsRouter = require('./routes/skins');
 var gamesHistoryRouter = require('./routes/gamesHistory');
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/roles', rolesRouter);
+app.use('/admin', adminRouter);
 app.use('/skins', skinsRouter);
 app.use('/gamesHistory', gamesHistoryRouter);
 

@@ -34,7 +34,7 @@ exports.newGame = async (req, res) => {
     try {
       const {games, finalResult} = req.body;
       const userId = req.user._id  
-      const points = 0
+      let points = 0
 
       const player = await User.findOne({_id: userId})
 
@@ -50,9 +50,11 @@ exports.newGame = async (req, res) => {
           if(player.points > 9){
             player.points -= 10
             await player.save(err => console.log(err))
+            points -= 10
           } else {
             player.points = 0
             await player.save(err => console.log(err))
+            points = 0
           }
             break
 

@@ -23,6 +23,14 @@ let GamesHistory = new Schema({
     points: {
         type: Number,
         required: true
+    },
+    playerCounter: {
+        type: Number,
+        required: true
+    },
+    botCounter: {
+        type: Number,
+        required: true
     }
 })
 

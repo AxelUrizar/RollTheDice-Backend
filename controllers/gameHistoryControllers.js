@@ -32,7 +32,7 @@ exports.userHistory = async (req, res) => {
 // 
 exports.newGame = async (req, res) => {
     try {
-      const {games, finalResult} = req.body;
+      const {games, finalResult, playerCounter, botCounter} = req.body;
       const userId = req.user._id  
       let points = 0
 
@@ -71,7 +71,9 @@ exports.newGame = async (req, res) => {
         games: games,
         finalResult: finalResult,
         userId: userId,
-        points: points
+        points: points,
+        playerCounter: playerCounter,
+        botCounter: botCounter
       })
       
       return res.status(200).json({

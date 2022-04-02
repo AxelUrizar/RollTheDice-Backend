@@ -97,8 +97,8 @@ exports.profile = async(req, res) => {
 exports.editProfile = async(req, res) => {
   try {
     const {alias} = req.body
-
-    const user = await User.findOne(req.user._id).populate('skins selectedSkin', {
+    if(await User.findOne({alias: alias}) !== null) throw new Error()
+    const user = await User.findOne(req.user).populate('skins selectedSkin', {
       name: 1,
       imageURL: 1
     })

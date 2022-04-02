@@ -8,7 +8,7 @@ const User = require('../models/Users');
 exports.showAll = async (req, res, next) => {
     try {
       const history = await GamesHistory.find({});
-      return res.status(200).json(history)
+      return res.status(200).json(history.reverse())
     } catch (error) {
       return res.status(500).json(error)
     }

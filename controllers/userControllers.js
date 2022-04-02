@@ -98,7 +98,10 @@ exports.editProfile = async(req, res) => {
   try {
     const {alias} = req.body
 
-    const user = await User.findOne(req.user._id)
+    const user = await User.findOne(req.user._id).populate('skins selectedSkin', {
+      name: 1,
+      imageURL: 1
+    })
     user.alias = alias.length > 2 ? alias : user.alias
     user.save()
     return res.status(200).json(user)

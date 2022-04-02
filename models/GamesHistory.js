@@ -19,6 +19,10 @@ let GamesHistory = new Schema({
         type: String,
         required: false,
         default: moment(new Date()).format("DD/MM/YYYY")
+    },
+    points: {
+        type: Number,
+        required: true
     }
 })
 

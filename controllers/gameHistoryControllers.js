@@ -34,19 +34,16 @@ exports.newGame = async (req, res) => {
     try {
       const {games, finalResult} = req.body;
       const userId = req.user._id  
-
-      const newGame = await GamesHistory.create({
-        games: games,
-        finalResult: finalResult,
-        userId: userId
-      })
+      const points = 0
 
       const player = await User.findOne({_id: userId})
+
       switch (finalResult) {
         case 'Win':
           player.points += 15
           player.coins += 25
           player.save()
+          points += 15
             break
 
         case 'Lose':
@@ -67,6 +64,13 @@ exports.newGame = async (req, res) => {
         default:
           break
       }
+
+      const newGame = await GamesHistory.create({
+        games: games,
+        finalResult: finalResult,
+        userId: userId,
+        points: points
+      })
       
       return res.status(200).json({
         game: newGame,

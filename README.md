@@ -1,6 +1,6 @@
 # ROLL THE DICE!
 
-API con CRUD para la trata de un buscador de peliculas.
+API con CRUD para la trata de la aplicación Roll The Dice.
 
 ### App deployeada en Heroku
 

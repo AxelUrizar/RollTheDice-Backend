@@ -29,7 +29,6 @@ exports.createUser = async (req, res) => {
       const {name, alias, email, password} = req.body;
   
       if (alias.length < 3) return res.status(401).json('El alias debe tener almenos 3 carácteres')
-      if (password.length < 6) return res.status(401).json('La contraseña debe tener almenos 6 carácteres');
   
       const userExists = await User.find({alias: alias, email: email});
   
